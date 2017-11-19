@@ -178,6 +178,9 @@ public class HCameraManager {
         public void onImageAvailable(ImageReader reader) {
             if (imageSaver == null)
                 imageSaver = new ImageSaver(reader.acquireNextImage(), mFile);
+            else {
+                imageSaver.setmImage(reader.acquireLatestImage());
+            }
             mBackgroundHandler.post(imageSaver);
         }
 
@@ -688,7 +691,7 @@ public class HCameraManager {
                                                @NonNull CaptureRequest request,
                                                @NonNull TotalCaptureResult result) {
                     if (viewAspectRatio != null)
-                        viewAspectRatio.onMessageInfo("Saved: " + mFile);
+                        viewAspectRatio.onMessageInfo("Saved: " + imageSaver.getOutputFile());
                     Log.d(TAG, mFile.toString());
                     unlockFocus();
                 }
