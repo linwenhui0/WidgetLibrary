@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="position">
+        <enum name="left_top" value="0" />
+        <enum name="left_bottom" value="1" />
+        <enum name="right_top" value="2" />
+        <enum name="right_bottom" value="3" />
+    </attr>
+    <attr name="radius" format="dimension" />
+
+    <attr name="angle">
+        <enum name="angle90" value="1"/>
+        <enum name="angle180" value="2"/>
+    </attr>
+
+    <declare-styleable name="ArcMenu">
+        <attr name="position" />
+        <attr name="radius" />
+        <attr name="angle"/>
+        <attr name="marginTop" format="dimension"/>
+        <attr name="marginBottom" format="dimension"/>
+        <attr name="marginLeft" format="dimension"/>
+        <attr name="marginRight" format="dimension"/>
+        <attr name="controlIdIndex" format="integer"/>
+    </declare-styleable>
+
+</resources>
