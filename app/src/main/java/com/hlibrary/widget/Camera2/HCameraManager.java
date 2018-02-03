@@ -690,8 +690,8 @@ public class HCameraManager {
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session,
                                                @NonNull CaptureRequest request,
                                                @NonNull TotalCaptureResult result) {
-                    if (viewAspectRatio != null)
-                        viewAspectRatio.onMessageInfo("Saved: " + imageSaver.getOutputFile());
+                    if (cameraTakePhoto != null)
+                        cameraTakePhoto.onTakePhots(imageSaver.getOutputFile());
                     Log.d(TAG, mFile.toString());
                     unlockFocus();
                 }

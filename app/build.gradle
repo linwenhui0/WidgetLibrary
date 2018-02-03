@@ -19,8 +19,8 @@ android {
 }
 
 dependencies {
-    compile 'com.github.linwenhui0:UtilLibary:0.0.2'
-    compile 'com.android.support:design:27.0.1'
+    compile 'com.github.linwenhui0:UtilLibary:0.0.6'
+    compile 'com.android.support:design:27.0.2'
 }
 
 def getRepositoryUsername() {

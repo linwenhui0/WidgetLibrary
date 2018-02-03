@@ -6,7 +6,6 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
 
 import com.hlibrary.util.Logger;
 
@@ -83,7 +82,7 @@ public class FormatEditText extends android.support.v7.widget.AppCompatEditText 
                 if ((sb.length() == 4 || sb.length() == 9) && sb.charAt(sb.length() - 1) != ' ') {
                     sb.insert(sb.length() - 1, ' ');
                     moveNum = 1;
-                    Logger.i(TAG, "selectionStart = " + selectionStart + " === " + sb.charAt(selectionStart - 2) + "");
+                    Logger.getInstance().i(TAG, "selectionStart = " + selectionStart + " === " + sb.charAt(selectionStart - 2) + "");
                 }
             }
         }
