@@ -31,7 +31,6 @@ import android.util.SparseIntArray;
 import android.view.Surface;
 
 import com.hlibrary.widget.Camera2.cameraInterface.ICameraTakePhoto;
-import com.hlibrary.widget.Camera2.cameraInterface.IPermissonRequest;
 import com.hlibrary.widget.Camera2.cameraInterface.IViewAspectRatio;
 
 import java.io.File;
@@ -99,13 +98,12 @@ public class HCameraManager {
 
 
     private final Activity activity;
-    private IPermissonRequest permissonRequest;
     private IViewAspectRatio viewAspectRatio;
 
     /**
      * An additional thread for running tasks that shouldn't block the UI.
      */
-    private HandlerThread mBackgroundThread;
+    private static HandlerThread mBackgroundThread;
 
     /**
      * A {@link Handler} for running tasks in the background.
@@ -301,9 +299,6 @@ public class HCameraManager {
         this.activity = activity;
     }
 
-    public void setPermissonRequest(IPermissonRequest permissonRequest) {
-        this.permissonRequest = permissonRequest;
-    }
 
     public void setViewAspectRatio(IViewAspectRatio viewAspectRatio) {
         this.viewAspectRatio = viewAspectRatio;
@@ -317,37 +312,19 @@ public class HCameraManager {
         this.cameraTakePhoto = cameraTakePhoto;
     }
 
-    /**
-     * Starts a background thread and its {@link Handler}.
-     */
-    public final void onStart() {
-        mBackgroundThread = new HandlerThread("CameraBackground");
-        mBackgroundThread.start();
-        mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
-    }
 
-    /**
-     * Stops the background thread and its {@link Handler}.
-     */
-    public final void onStop() {
-        mBackgroundThread.quitSafely();
-        try {
-            mBackgroundThread.join();
-            mBackgroundThread = null;
-            mBackgroundHandler = null;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Opens the camera specified by {@link HCameraManager#mCameraId}.
      */
     public boolean openCamera(int width, int height) throws InterruptedException, NullPointerException {
+        if (mBackgroundHandler == null)
+            mBackgroundThread = new HandlerThread("CameraBackground");
+        mBackgroundThread.start();
+        mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
+
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            if (permissonRequest != null)
-                permissonRequest.onRequesPermisson();
             return false;
         }
         CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
@@ -390,6 +367,15 @@ public class HCameraManager {
             throw new RuntimeException("Interrupted while trying to lock camera closing.", e);
         } finally {
             mCameraOpenCloseLock.release();
+        }
+
+        mBackgroundThread.quitSafely();
+        try {
+            mBackgroundThread.join();
+            mBackgroundThread = null;
+            mBackgroundHandler = null;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

@@ -1,20 +1,21 @@
 package com.hlibrary.widget;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
-import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
+
+import com.hlibrary.util.Logger;
 
 
 public class ArcMenu extends ViewGroup implements OnClickListener {
@@ -107,7 +108,7 @@ public class ArcMenu extends ViewGroup implements OnClickListener {
         mAngle = Math.PI * a.getInt(R.styleable.ArcMenu_angle, 1) / 2.0;
         controlIdIndex = a.getInteger(R.styleable.ArcMenu_controlIdIndex, 0);
 
-        Log.e("TAG", "position = " + mPosition + " , radius =  " + mRadius);
+        Logger.getInstance().e("TAG", "position = " + mPosition + " , radius =  " + mRadius);
 
         a.recycle();
 
@@ -241,6 +242,9 @@ public class ArcMenu extends ViewGroup implements OnClickListener {
             }
             final View childView = getChildAt(i);
             childView.setVisibility(View.VISIBLE);
+            childView.setAlpha(1f);
+            childView.setScaleX(1f);
+            childView.setScaleY(1f);
 
             // end 0 , 0
             // start
@@ -268,7 +272,6 @@ public class ArcMenu extends ViewGroup implements OnClickListener {
                 tranAnim = new TranslateAnimation(xflag * cl, 0, yflag * ct, 0);
                 childView.setClickable(true);
                 childView.setFocusable(true);
-
             } else
             // to close
             {
@@ -338,10 +341,9 @@ public class ArcMenu extends ViewGroup implements OnClickListener {
                 continue;
             View childView = getChildAt(i);
             if (i == pos) {
-                childView.startAnimation(scaleBigAnim(300));
+                scaleBigAnim(childView, 300);
             } else {
-
-                childView.startAnimation(scaleSmallAnim(300));
+                scaleSmallAnim(childView, 300);
             }
 
             childView.setClickable(false);
@@ -351,20 +353,15 @@ public class ArcMenu extends ViewGroup implements OnClickListener {
 
     }
 
-    private Animation scaleSmallAnim(int duration) {
+    private void scaleSmallAnim(View v, int duration) {
 
-        AnimationSet animationSet = new AnimationSet(true);
-
-        ScaleAnimation scaleAnim = new ScaleAnimation(1.0f, 0.0f, 1.0f, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        AlphaAnimation alphaAnim = new AlphaAnimation(1f, 0.0f);
-        animationSet.addAnimation(scaleAnim);
-        animationSet.addAnimation(alphaAnim);
-        animationSet.setDuration(duration);
-        animationSet.setFillAfter(true);
-        return animationSet;
-
+        AnimatorSet animatorSet = new AnimatorSet();
+        ObjectAnimator scaleAnimX = ObjectAnimator.ofFloat(v, "scaleX", 1f, 0f);
+        ObjectAnimator scaleAnimY = ObjectAnimator.ofFloat(v, "scaleY", 1f, 0f);
+        ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(v, "alpha", 1f, 0f);
+        animatorSet.setDuration(duration);
+        animatorSet.playTogether(scaleAnimX, scaleAnimY, alphaAnim);
+        animatorSet.start();
     }
 
     /**
@@ -373,21 +370,14 @@ public class ArcMenu extends ViewGroup implements OnClickListener {
      * @param duration
      * @return
      */
-    private Animation scaleBigAnim(int duration) {
-        AnimationSet animationSet = new AnimationSet(true);
-
-        ScaleAnimation scaleAnim = new ScaleAnimation(1.0f, 4.0f, 1.0f, 4.0f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        AlphaAnimation alphaAnim = new AlphaAnimation(1f, 0.0f);
-
-        animationSet.addAnimation(scaleAnim);
-        animationSet.addAnimation(alphaAnim);
-
+    private void scaleBigAnim(final View v, int duration) {
+        AnimatorSet animationSet = new AnimatorSet();
+        ObjectAnimator scaleAnimX = ObjectAnimator.ofFloat(v, "scaleX", 1f, 4f);
+        ObjectAnimator scaleAnimY = ObjectAnimator.ofFloat(v, "scaleY", 1f, 4f);
+        ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(v, "alpha", 1f, 0);
+        animationSet.playTogether(alphaAnim, scaleAnimX, scaleAnimY);
         animationSet.setDuration(duration);
-        animationSet.setFillAfter(true);
-        return animationSet;
-
+        animationSet.start();
     }
 
     /**
@@ -404,13 +394,9 @@ public class ArcMenu extends ViewGroup implements OnClickListener {
 
 
     private void rotateCButton(View v, float start, float end, int duration) {
-
-        RotateAnimation anim = new RotateAnimation(start, end,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        anim.setDuration(duration);
-        anim.setFillAfter(true);
-        v.startAnimation(anim);
+        ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(v, "rotation", start, end);
+        rotationAnim.setDuration(duration);
+        rotationAnim.start();
     }
 
 }

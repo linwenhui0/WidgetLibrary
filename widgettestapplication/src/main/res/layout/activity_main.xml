@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <com.hlibrary.widget.TextView.FormatEditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:separator="@string/separator" />
+
+    <com.hlibrary.widget.TextView.MarqueeTextView
+        android:id="@+id/txtvwAds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1234567890"
+        app:time_interval="10" />
+
+    <com.hlibrary.widget.TextView.ReceiveCodeButton
+        android:id="@+id/btnCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:code_interval="10"
+        app:default_text="获得验证码"
+        app:edittext_id="@id/phone"
+        app:receive_text="接收验证码(%d)" />
+
+    <com.hlibrary.widget.ArcMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3" />
+    </com.hlibrary.widget.ArcMenu>
+
+</LinearLayout>

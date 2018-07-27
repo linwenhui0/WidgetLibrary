@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">WidgetTestApplication</string>
+    <string name="separator">*</string>
+</resources>
