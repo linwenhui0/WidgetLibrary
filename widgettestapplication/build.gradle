@@ -9,8 +9,8 @@ android {
     defaultConfig {
         applicationId "com.hdlang.widget.test"
         minSdkVersion 21
-        targetSdkVersion 25
-        buildToolsVersion '27.0.3'
+        targetSdkVersion 27
+        buildToolsVersion '28.0.3'
         versionCode 1
         versionName "1.0"
 

@@ -2,7 +2,7 @@ package com.hlibrary.widget.Camera2;
 
 import android.media.Image;
 
-import com.hlibrary.util.DateFormatUtil;
+import com.hlibrary.util.date.DateFormatUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -47,7 +47,7 @@ public class ImageSaver implements Runnable {
         buffer.get(bytes);
         FileOutputStream output = null;
 
-        File filenameFile = new File(mFile, DateFormatUtil.getDate("yyyy-mm-dd_HH_mm_ss"));
+        File filenameFile = new File(mFile, DateFormatUtil.Companion.getDate("yyyy-mm-dd_HH_mm_ss"));
         outputFile = filenameFile.getAbsolutePath();
         try {
             output = new FileOutputStream(filenameFile);

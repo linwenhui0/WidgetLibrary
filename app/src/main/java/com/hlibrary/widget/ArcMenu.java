@@ -317,9 +317,9 @@ public class ArcMenu extends ViewGroup implements OnClickListener {
             childView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mMenuItemClickListener != null)
+                    if (mMenuItemClickListener != null) {
                         mMenuItemClickListener.onClick(childView, pos);
-
+                    }
                     menuItemAnim(pos - 1);
                     changeStatus();
 
@@ -337,8 +337,9 @@ public class ArcMenu extends ViewGroup implements OnClickListener {
      */
     private void menuItemAnim(int pos) {
         for (int i = 0; i < getChildCount(); i++) {
-            if (i == controlIdIndex)
+            if (i == controlIdIndex) {
                 continue;
+            }
             View childView = getChildAt(i);
             if (i == pos) {
                 scaleBigAnim(childView, 300);

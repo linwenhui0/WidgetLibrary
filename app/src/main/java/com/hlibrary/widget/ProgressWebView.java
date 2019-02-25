@@ -10,8 +10,6 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.hlibrary.util.DensityUtil;
-
 
 /**
  * Created by linwenhui on 2015/11/1.
@@ -41,7 +39,7 @@ public class ProgressWebView extends RelativeLayout {
     public void initview(Context context) {
         webView = new WebView(context);
         progressBar = new ProgressBar(context);
-        final int progressWidth = DensityUtil.dip2px(getContext(), 50);
+        final int progressWidth = (int) (context.getResources().getDisplayMetrics().widthPixels*0.4);
         LayoutParams probarp = new LayoutParams(progressWidth, progressWidth);
         probarp.addRule(RelativeLayout.CENTER_IN_PARENT);
         progressBar.setLayoutParams(probarp);
@@ -67,6 +65,7 @@ public class ProgressWebView extends RelativeLayout {
 
         webView.setWebViewClient(new WebViewClient() {
 
+            @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (isOverrideUrl) {
                     view.loadUrl(url);
@@ -82,27 +81,30 @@ public class ProgressWebView extends RelativeLayout {
                 if (newProgress > 80) {
                     progressBar.setVisibility(View.GONE);
                 }
-                if (newProgress == 0)
+                if (newProgress == 0) {
                     progressBar.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                if (webViewTitle!=null)
+                if (webViewTitle != null) {
                     webViewTitle.onTitle(title);
+                }
             }
         });
 
         webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);    //支持js脚本
+        //支持js脚本
+        webSettings.setJavaScriptEnabled(true);
     }
 
     /**
      * 设置是否缩放，true为缩放
      */
     public void setwebSettingZoom(boolean istrue) {
-        if (istrue == true) {
+        if (istrue) {
             webSettings.setSupportZoom(true);
             webSettings.setBuiltInZoomControls(true);
             webSettings.setUseWideViewPort(true);
@@ -129,7 +131,7 @@ public class ProgressWebView extends RelativeLayout {
         webView.reload();
     }
 
-    public interface IWebViewTitle{
+    public interface IWebViewTitle {
         void onTitle(CharSequence title);
     }
 }
