@@ -2,15 +2,16 @@ package com.hlibrary.widget.design;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.hlibrary.widget.R;
 
-public class RecyclerView extends android.support.v7.widget.RecyclerView {
+public class RecyclerView extends androidx.recyclerview.widget.RecyclerView {
 
     private OnBottomCallback mOnBottomCallback;
     private boolean firstViualBottom;
@@ -87,8 +88,9 @@ public class RecyclerView extends android.support.v7.widget.RecyclerView {
     public boolean isSlideToBottom2() {
         boolean result = ((this.computeVerticalScrollExtent() + this.computeVerticalScrollOffset())
                 >= this.computeVerticalScrollRange());
-        if (!result)
+        if (!result) {
             onlyCallOnly = false;
+        }
         return result;
     }
 

@@ -7,20 +7,20 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.hlibrary.widget.TextView.FormatEditText
+    <com.hlibrary.widget.textview.FormatEditText
         android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:separator="@string/separator" />
 
-    <com.hlibrary.widget.TextView.MarqueeTextView
+    <com.hlibrary.widget.textview.MarqueeTextView
         android:id="@+id/txtvwAds"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="1234567890"
         app:time_interval="10" />
 
-    <com.hlibrary.widget.TextView.ReceiveCodeButton
+    <com.hlibrary.widget.textview.ReceiveCodeButton
         android:id="@+id/btnCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

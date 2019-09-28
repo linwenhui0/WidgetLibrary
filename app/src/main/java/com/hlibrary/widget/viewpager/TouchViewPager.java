@@ -5,10 +5,12 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import androidx.viewpager.widget.ViewPager;
+
 /**
  * Created by linwenhui on 2015/9/30.
  */
-public class TouchViewPager extends android.support.v4.view.ViewPager {
+public class TouchViewPager extends ViewPager {
 
     public TouchViewPager(Context context) {
         super(context);

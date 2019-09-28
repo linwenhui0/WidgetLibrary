@@ -1,4 +1,4 @@
-package com.hlibrary.widget.Camera2;
+package com.hlibrary.widget.camera2;
 
 import android.Manifest;
 import android.app.Activity;
@@ -23,15 +23,16 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.ImageReader;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
 
-import com.hlibrary.widget.Camera2.cameraInterface.ICameraTakePhoto;
-import com.hlibrary.widget.Camera2.cameraInterface.IViewAspectRatio;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
+import com.hlibrary.widget.camera2.cameraInterface.ICameraTakePhoto;
+import com.hlibrary.widget.camera2.cameraInterface.IViewAspectRatio;
 
 import java.io.File;
 import java.util.ArrayList;

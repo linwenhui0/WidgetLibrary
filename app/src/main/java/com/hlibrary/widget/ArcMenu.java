@@ -108,7 +108,7 @@ public class ArcMenu extends ViewGroup implements OnClickListener {
         mAngle = Math.PI * a.getInt(R.styleable.ArcMenu_angle, 1) / 2.0;
         controlIdIndex = a.getInteger(R.styleable.ArcMenu_controlIdIndex, 0);
 
-        Logger.getInstance().e("TAG", "position = " + mPosition + " , radius =  " + mRadius);
+        Logger.Companion.getInstance().e("TAG", "position = " + mPosition + " , radius =  " + mRadius);
 
         a.recycle();
 

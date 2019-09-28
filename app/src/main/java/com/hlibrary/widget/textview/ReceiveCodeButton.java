@@ -1,17 +1,19 @@
-package com.hlibrary.widget.TextView;
+package com.hlibrary.widget.textview;
 
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.CountDownTimer;
-import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import com.hlibrary.util.Logger;
 import com.hlibrary.util.Utils;
@@ -23,7 +25,7 @@ import com.hlibrary.widget.listener.IReceiverCodeListener;
  * 获取验证码按钮，倒数60秒
  * Created by Administrator on 2015/5/25 14:53
  */
-public class ReceiveCodeButton extends android.support.v7.widget.AppCompatCheckBox implements CompoundButton.OnCheckedChangeListener, LifecycleObserver {
+public class ReceiveCodeButton extends AppCompatCheckBox implements CompoundButton.OnCheckedChangeListener, LifecycleObserver {
     /**
      * 绑定手机号码的edittext
      */
@@ -67,8 +69,8 @@ public class ReceiveCodeButton extends android.support.v7.widget.AppCompatCheckB
 
         super.setOnCheckedChangeListener(this);
 
-        if (context instanceof SupportActivity) {
-            ((SupportActivity) context).getLifecycle().addObserver(this);
+        if (context instanceof FragmentActivity) {
+            ((FragmentActivity) context).getLifecycle().addObserver(this);
         }
     }
 
@@ -89,12 +91,13 @@ public class ReceiveCodeButton extends android.support.v7.widget.AppCompatCheckB
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void destory() {
-        Logger.getInstance().defaultTagD("destory");
-        if (countDownTimer != null)
+        Logger.Companion.getInstance().defaultTagD("destory");
+        if (countDownTimer != null) {
             countDownTimer.cancel();
+        }
         Context context = getContext();
-        if (context instanceof SupportActivity) {
-            ((SupportActivity) context).getLifecycle().removeObserver(this);
+        if (context instanceof FragmentActivity) {
+            ((FragmentActivity) context).getLifecycle().removeObserver(this);
         }
     }
 
@@ -118,8 +121,9 @@ public class ReceiveCodeButton extends android.support.v7.widget.AppCompatCheckB
     }
 
     private void initPhoneNum() {
-        if (phoneEdittext != null)
+        if (phoneEdittext != null) {
             phoneNum = phoneEdittext.getText().toString();
+        }
     }
 
     public void setPhoneNum(String phoneNum) {
@@ -142,8 +146,9 @@ public class ReceiveCodeButton extends android.support.v7.widget.AppCompatCheckB
             initPhoneNum();
 
             if (TextUtils.isEmpty(phoneNum)) {
-                if (receiverCodeListener != null)
+                if (receiverCodeListener != null) {
                     receiverCodeListener.onEmptyPhoneNumber();
+                }
                 setChecked(false);
                 return;
             }
@@ -152,14 +157,15 @@ public class ReceiveCodeButton extends android.support.v7.widget.AppCompatCheckB
             if (phoneEdittext instanceof FormatEditText) {
                 FormatEditText formatEditText = (FormatEditText) phoneEdittext;
                 String separator = formatEditText.getSeparator();
-                isMobileNumber = Utils.Companion.isFormatMobileNO(phoneNum, separator);
+                isMobileNumber = Utils.INSTANCE.isFormatMobileNO(phoneNum, separator);
             } else {
-                isMobileNumber = Utils.Companion.isMobileNO(phoneNum);
+                isMobileNumber = Utils.INSTANCE.isMobileNO(phoneNum);
             }
-            Logger.getInstance().defaultTagD("isMobileNumber = ", isMobileNumber);
+            Logger.Companion.getInstance().defaultTagD("isMobileNumber = ", isMobileNumber);
             if (!isMobileNumber) {
-                if (receiverCodeListener != null)
+                if (receiverCodeListener != null) {
                     receiverCodeListener.onPhoneNumberValib();
+                }
                 setChecked(false);
                 return;
             }
@@ -169,33 +175,36 @@ public class ReceiveCodeButton extends android.support.v7.widget.AppCompatCheckB
     }
 
     private void updateViewText(long millisUntilFinished) {
-        Logger.getInstance().defaultTagD(millisUntilFinished);
-        if (receiveText == null)
+        Logger.Companion.getInstance().defaultTagD(millisUntilFinished);
+        if (receiveText == null) {
             setText(String.format("%ds", millisUntilFinished / 1000));
-        else
+        } else {
             setText(String.format(receiveText, millisUntilFinished / 1000));
+        }
     }
 
     private void startCountTime() {
-        if (countDownTimer != null)
+        if (countDownTimer != null) {
             countDownTimer.cancel();
+        }
         countDownTimer = new CountDownTimer(codeInterval + 1500, delayTime) {
             @Override
             public void onTick(long millisUntilFinished) {
                 updateViewText(millisUntilFinished - 1000);
-                if (receiverCodeListener != null)
+                if (receiverCodeListener != null) {
                     receiverCodeListener.onTick(millisUntilFinished);
+                }
             }
 
             @Override
             public void onFinish() {
 
                 countDownTimer = null;
-                Logger.getInstance().defaultTagD("onFinish");
+                Logger.Companion.getInstance().defaultTagD("onFinish");
                 setText(defaultText);
                 setChecked(false);
-                if (receiverCodeListener != null)
-                    receiverCodeListener.onFinish();
+                if (receiverCodeListener != null){
+                    receiverCodeListener.onFinish();}
             }
         };
         countDownTimer.start();

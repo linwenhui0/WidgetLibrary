@@ -1,4 +1,4 @@
-package com.hlibrary.widget.Camera2.cameraInterface;
+package com.hlibrary.widget.camera2.cameraInterface;
 
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;

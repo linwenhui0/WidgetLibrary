@@ -1,4 +1,4 @@
-package com.hlibrary.widget.TextView;
+package com.hlibrary.widget.textview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatEditText;
+
 import com.hlibrary.util.Logger;
 import com.hlibrary.widget.R;
 
@@ -17,7 +19,7 @@ import com.hlibrary.widget.R;
  * @version v 1.0.0
  * @since 2015/8/19
  */
-public class FormatEditText extends android.support.v7.widget.AppCompatEditText
+public class FormatEditText extends AppCompatEditText
         implements View.OnKeyListener {
 
     private final static String TAG = "FormatEditText";
@@ -40,10 +42,11 @@ public class FormatEditText extends android.support.v7.widget.AppCompatEditText
     }
 
     public void setSeparator(String separator) {
-        if (TextUtils.isEmpty(separator))
+        if (TextUtils.isEmpty(separator)) {
             this.separator = " ";
-        else
+        } else {
             this.separator = separator;
+        }
     }
 
     public String getSeparator() {
@@ -60,8 +63,9 @@ public class FormatEditText extends android.support.v7.widget.AppCompatEditText
                 R.styleable.FormatEditText, defStyleAttr, 0);
         // 分隔符
         separator = a.getString(R.styleable.FormatEditText_separator);
-        if (TextUtils.isEmpty(separator))
+        if (TextUtils.isEmpty(separator)) {
             separator = " ";
+        }
         a.recycle();
     }
 
@@ -80,8 +84,9 @@ public class FormatEditText extends android.support.v7.widget.AppCompatEditText
     private int moveNum;
 
     private void phoneNumFormat(CharSequence s, int start, int before) {
-        if (s == null || s.length() == 0)
+        if (s == null || s.length() == 0) {
             return;
+        }
 
         if (!s.toString().startsWith("1")) {
             setText("");
@@ -111,7 +116,7 @@ public class FormatEditText extends android.support.v7.widget.AppCompatEditText
                 if ((sbLen == 4 || sbLen == 9) && !String.valueOf(sb.charAt(sbLen - 1)).equals(separator)) {
                     sb.insert(sb.length() - 1, separator);
                     moveNum = 1;
-                    Logger.getInstance().i(TAG, "selectionStart = " + selectionStart + " === " + sb.charAt(selectionStart - 2) + "");
+                    Logger.Companion.getInstance().i(TAG, "selectionStart = " + selectionStart + " === " + sb.charAt(selectionStart - 2) + "");
                 }
             }
         }

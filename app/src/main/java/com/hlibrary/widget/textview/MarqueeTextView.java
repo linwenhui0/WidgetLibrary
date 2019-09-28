@@ -1,16 +1,17 @@
-package com.hlibrary.widget.TextView;
+package com.hlibrary.widget.textview;
 
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.v4.app.SupportActivity;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import com.hlibrary.widget.R;
 
@@ -47,8 +48,8 @@ public class MarqueeTextView extends AppCompatTextView implements Runnable, Life
         autoStart = a.getBoolean(R.styleable.MarqueeTextView_auto_start, true);
         circleTimes = a.getInt(R.styleable.MarqueeTextView_times, -1);
         a.recycle();
-        if (context instanceof SupportActivity) {
-            ((SupportActivity) context).getLifecycle().addObserver(this);
+        if (context instanceof FragmentActivity) {
+            ((FragmentActivity) context).getLifecycle().addObserver(this);
         }
     }
 
@@ -63,8 +64,9 @@ public class MarqueeTextView extends AppCompatTextView implements Runnable, Life
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void resume() {
-        if (autoStart)
+        if (autoStart) {
             startScrollShow();
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
@@ -75,8 +77,8 @@ public class MarqueeTextView extends AppCompatTextView implements Runnable, Life
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void destory() {
         Context context = getContext();
-        if (context instanceof SupportActivity) {
-            ((SupportActivity) context).getLifecycle().removeObserver(this);
+        if (context instanceof FragmentActivity) {
+            ((FragmentActivity) context).getLifecycle().removeObserver(this);
         }
     }
 
@@ -134,8 +136,9 @@ public class MarqueeTextView extends AppCompatTextView implements Runnable, Life
     }
 
     public void startScrollShow() {
-        if (this.getVisibility() == View.GONE)
+        if (this.getVisibility() == View.GONE) {
             this.setVisibility(View.VISIBLE);
+        }
         this.removeCallbacks(this);
         post(this);
     }

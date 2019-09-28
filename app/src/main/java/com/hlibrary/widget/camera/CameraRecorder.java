@@ -1,4 +1,4 @@
-package com.hlibrary.widget.Camera;
+package com.hlibrary.widget.camera;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -24,7 +24,7 @@ public class CameraRecorder {
 
     public CameraRecorder(CameraPreview cameraPreview) {
         this.cameraPreview = cameraPreview;
-        filepath = FileManager.getSdCardPath(cameraPreview.getContext()) + File.separator
+        filepath = FileManager.INSTANCE.getSdCardPath(cameraPreview.getContext()) + File.separator
                 + "Android" + File.separator + "data" + File.separator
                 + cameraPreview.getContext().getPackageName() + File.separator + "video";
         File mRecVedioPath = new File(filepath);

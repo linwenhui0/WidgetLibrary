@@ -1,4 +1,4 @@
-package com.hlibrary.widget.Camera;
+package com.hlibrary.widget.camera;
 
 import android.content.Context;
 import android.hardware.Camera;

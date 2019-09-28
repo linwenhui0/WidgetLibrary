@@ -13,11 +13,13 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 
 /**
  * Created by Administrator on 205//2.
  */
-public class RoundImageView extends android.support.v7.widget.AppCompatImageView {
+public class RoundImageView extends AppCompatImageView {
     private Paint paint;
     private int roundWidth = 50;
     private int roundHeight = 50;

@@ -21,13 +21,11 @@ android {
 }
 
 dependencies {
-    compileOnly 'com.android.support:appcompat-v7:27.1.1'
-    compileOnly 'com.android.support:design:27.1.1'
-    compileOnly 'com.hlibrary.util:utillibrary:0.0.6'
+    compileOnly 'androidx.appcompat:appcompat:1.0.2'
+    compileOnly 'com.alibaba:fastjson:1.2.51'
+    compileOnly 'com.hlibrary.util:utillibrary:0.0.12'
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    //For Lifecycles, LiveData, and ViewModel
-    compileOnly "android.arch.lifecycle:runtime:1.1.1"
-    compileOnly "android.arch.lifecycle:extensions:1.1.1"
+    compileOnly 'androidx.recyclerview:recyclerview:1.1.0-beta01'
 }
 
-apply from: 'http://108.160.143.119/gradle/gradle-mvn-push.gradle'
+apply from: 'http://207.246.93.94/gradle/gradle-mvn-push.gradle'

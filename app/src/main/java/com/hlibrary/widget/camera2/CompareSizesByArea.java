@@ -1,4 +1,4 @@
-package com.hlibrary.widget.Camera2;
+package com.hlibrary.widget.camera2;
 
 import android.util.Size;
 

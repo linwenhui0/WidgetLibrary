@@ -8,7 +8,7 @@ import android.view.View;
 /**
  * Created by linwenhui on 2015/11/1.
  */
-public class CoordinatorLayout extends android.support.design.widget.CoordinatorLayout {
+public class CoordinatorLayout extends androidx.coordinatorlayout.widget.CoordinatorLayout {
     public CoordinatorLayout(Context context) {
         super(context);
     }
