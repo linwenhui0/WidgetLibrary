@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -48,9 +49,29 @@ public class MarqueeTextView extends AppCompatTextView implements Runnable, Life
         autoStart = a.getBoolean(R.styleable.MarqueeTextView_auto_start, true);
         circleTimes = a.getInt(R.styleable.MarqueeTextView_times, -1);
         a.recycle();
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Context context = getContext();
         if (context instanceof FragmentActivity) {
-            ((FragmentActivity) context).getLifecycle().addObserver(this);
+            FragmentActivity fragmentActivity = (FragmentActivity) context;
+            Lifecycle lifecycle = fragmentActivity.getLifecycle();
+            lifecycle.addObserver(this);
         }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        Context context = getContext();
+        if (context instanceof FragmentActivity) {
+            FragmentActivity fragmentActivity = (FragmentActivity) context;
+            Lifecycle lifecycle = fragmentActivity.getLifecycle();
+            lifecycle.addObserver(this);
+        }
+
     }
 
     @Override
@@ -72,14 +93,6 @@ public class MarqueeTextView extends AppCompatTextView implements Runnable, Life
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     public void pause() {
         removeCallbacks(this);
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    public void destory() {
-        Context context = getContext();
-        if (context instanceof FragmentActivity) {
-            ((FragmentActivity) context).getLifecycle().removeObserver(this);
-        }
     }
 
     public void setAutoStart(boolean autoStart) {
@@ -116,7 +129,7 @@ public class MarqueeTextView extends AppCompatTextView implements Runnable, Life
     private void getTextWidth() {
         Paint paint = this.getPaint();
         String str = this.getText().toString();
-        if (str == null) {
+        if (TextUtils.isEmpty(str)) {
             textWidth = 0;
         }
         textWidth = (int) paint.measureText(str);
