@@ -20,7 +20,7 @@ allprojects {
         jcenter()
         google()
         maven {
-            url 'http://108.61.177.84:8081/nexus/content/groups/public/'
+            url 'https://gitee.com/companycode/mvn-repo/raw/master/releases/'
         }
     }
 }
