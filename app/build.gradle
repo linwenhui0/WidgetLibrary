@@ -22,7 +22,7 @@ android {
 dependencies {
     compileOnly 'androidx.appcompat:appcompat:1.1.0'
     compileOnly 'com.alibaba:fastjson:1.2.61'
-    compileOnly 'com.hlibrary.util:utillibrary:0.0.26'
+    compileOnly 'com.github.linwenhui0:UtilLibary:0.0.26'
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compileOnly 'androidx.recyclerview:recyclerview:1.1.0'
 }
